@@ -4,6 +4,9 @@ require 'battleships'
 class BattleshipsWeb < Sinatra::Base
 set :views, Proc.new { File.join(root, "..", "views") }
 
+  @@game = Game.new Player, Board
+  @board = @@game.own_board_view @@game.player_1
+
   get '/' do
     erb :index
   end
@@ -12,9 +15,14 @@ set :views, Proc.new { File.join(root, "..", "views") }
     erb :new_game
   end
 
-  get '/game' do
+  post '/game' do
     @name = params[:name]
-    erb :start_game
+    @board = @@game.own_board_view @@game.player_1
+    if @name.empty?
+      redirect '/game/new'
+    else
+      erb :start_game
+    end
   end
 
   # start the server if ruby file executed directly

@@ -11,9 +11,21 @@ Then(/^I should see "([^"]*)"$/) do |text|
 end
 
 When(/^I fill in "([^"]*)" with "([^"]*)"$/) do |arg1, arg2|
-  fill_in('name', :with => 'my name')
+  fill_in('name', :with => 'Dan')
 end
 
 When(/^I click "([^"]*)"$/) do |arg1|
   click_button('submit')
+end
+
+Given(/^I am on the new game page$/) do
+  visit('/game/new')
+end
+
+When(/^I don't fill in "([^"]*)" with "([^"]*)"$/) do |arg1, arg2|
+  fill_in('name', :with => '')
+end
+
+Given(/^I am on the start game page$/) do
+  visit('/game')
 end
