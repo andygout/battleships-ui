@@ -22,10 +22,10 @@ set :views, Proc.new { File.join(root, "..", "views") }
     else
       @@game.player_1.place_ship Ship.destroyer, 'A1', :vertically
       @@game.player_2.place_ship Ship.destroyer, 'J1', :vertically
-      @board1 = @@game.own_board_view @@game.player_1
-      @board2 = @@game.opponent_board_view @@game.player_1
-      @board3 = @@game.own_board_view @@game.player_2
-      @board4 = @@game.opponent_board_view @@game.player_2
+      @p1_board_own = @@game.own_board_view @@game.player_1
+      @p1_board_opp = @@game.opponent_board_view @@game.player_1
+      @p2_board_own = @@game.own_board_view @@game.player_2
+      @p2_board_opp = @@game.opponent_board_view @@game.player_2
       erb :player_1_turn
     end
   end
@@ -34,10 +34,10 @@ set :views, Proc.new { File.join(root, "..", "views") }
     @coord = params[:coord]
     @@game.player_2.shoot @coord.to_sym
     if !@@game.player_1.all_ships_sunk?
-      @board1 = @@game.own_board_view @@game.player_1
-      @board2 = @@game.opponent_board_view @@game.player_1
-      @board3 = @@game.own_board_view @@game.player_2
-      @board4 = @@game.opponent_board_view @@game.player_2
+      @p1_board_own = @@game.own_board_view @@game.player_1
+      @p1_board_opp = @@game.opponent_board_view @@game.player_1
+      @p2_board_own = @@game.own_board_view @@game.player_2
+      @p2_board_opp = @@game.opponent_board_view @@game.player_2
       erb :player_1_turn
     else
       @player_1_win_status = @@game.player_1.winner?
@@ -50,10 +50,10 @@ set :views, Proc.new { File.join(root, "..", "views") }
     @coord = params[:coord]
     @@game.player_1.shoot @coord.to_sym
     if !@@game.player_2.all_ships_sunk?
-      @board1 = @@game.own_board_view @@game.player_1
-      @board2 = @@game.opponent_board_view @@game.player_1
-      @board3 = @@game.own_board_view @@game.player_2
-      @board4 = @@game.opponent_board_view @@game.player_2
+      @p1_board_own = @@game.own_board_view @@game.player_1
+      @p1_board_opp = @@game.opponent_board_view @@game.player_1
+      @p2_board_own = @@game.own_board_view @@game.player_2
+      @p2_board_opp = @@game.opponent_board_view @@game.player_2
       erb :player_2_turn
     else
       @player_1_win_status = @@game.player_1.winner?

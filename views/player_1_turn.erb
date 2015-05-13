@@ -1,12 +1,10 @@
-<h1>Hello <%= $p1_name %> (player 1), you are pretty sad for playing Battleships - get a life!</h1>
+<h1>Your turn to fire, <%= $p1_name %> (player 1)!</h1>
 
-<h2>Here are your boards, you complete loser:</h2>
+<h2>Your fleet:-</h2>
+<pre><%= @p1_board_own %></pre>
 
-<h2>Board displaying ships</h2>
-<pre><%= @board1 %></pre>
-
-<h2>Board only displaying hits</h2>
-<pre><%= @board2 %></pre>
+<h2>Your shots against the enemy:-</h2>
+<pre><%= @p1_board_opp %></pre>
 
 <div>
 <form action="/game/player_2_turn" method="post">
