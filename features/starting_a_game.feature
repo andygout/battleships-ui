@@ -13,6 +13,6 @@ Feature: Starting the game
 
   Scenario: Failing to register
     Given I am on the new game page
-    When I don't fill in "name" with ""
+    When I fill in "name" with empty space ""
     And I click "submit"
     Then I should see "What's your name?"

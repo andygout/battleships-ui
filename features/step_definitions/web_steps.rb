@@ -22,7 +22,7 @@ Given(/^I am on the new game page$/) do
   visit('/game/new')
 end
 
-When(/^I don't fill in "([^"]*)" with "([^"]*)"$/) do |arg1, arg2|
+When(/^I fill in "([^"]*)" with empty space "([^"]*)"$/) do |arg1, arg2|
   fill_in('name', :with => '')
 end
 
