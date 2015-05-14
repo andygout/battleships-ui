@@ -3,6 +3,7 @@ require 'battleships'
 
 class BattleshipsWeb < Sinatra::Base
 set :views, Proc.new { File.join(root, "..", "views") }
+enable :sessions
 
   @@game = Game.new Player, Board
 
@@ -15,9 +16,9 @@ set :views, Proc.new { File.join(root, "..", "views") }
   end
 
   post '/game/commence_battle' do
-    $p1_name = params[:p1_name]
-    $p2_name = params[:p2_name]
-    if $p1_name.empty? || $p2_name.empty?
+    session[:p1_name] = params[:p1_name]
+    session[:p2_name] = params[:p2_name]
+    if session[:p1_name].length < 1 || session[:p2_name].length < 1
       redirect '/game/register_players'
     else
       @@game.player_1.place_ship Ship.destroyer, 'A1', :vertically
@@ -29,12 +30,15 @@ set :views, Proc.new { File.join(root, "..", "views") }
   get '/game/player_1_turn' do
     @p1_board_own = @@game.own_board_view @@game.player_1
     @p1_board_opp = @@game.opponent_board_view @@game.player_1
+    @p1_name = session[:p1_name]
     erb :player_1_turn
   end
 
   post '/game/player_1_result' do
     @coord = params[:coord]
     @result =  @@game.player_1.shoot @coord.to_sym
+    @p1_name = session[:p1_name]
+    @p2_name = session[:p2_name]
     if !@@game.player_2.all_ships_sunk?
       erb :player_1_result
     else
@@ -47,12 +51,15 @@ set :views, Proc.new { File.join(root, "..", "views") }
   get '/game/player_2_turn' do
     @p2_board_own = @@game.own_board_view @@game.player_2
     @p2_board_opp = @@game.opponent_board_view @@game.player_2
+    @p2_name = session[:p2_name]
     erb :player_2_turn
   end
 
   post '/game/player_2_result' do
     @coord = params[:coord]
     @result =  @@game.player_2.shoot @coord.to_sym
+    @p1_name = session[:p1_name]
+    @p2_name = session[:p2_name]
       if !@@game.player_1.all_ships_sunk?
       erb :player_2_result
     else

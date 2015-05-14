@@ -16,7 +16,7 @@
 </head>
 
 <h1>
-  <%= $p1_name %>, you fired at <%= $p2_name %>'s fleet
+  <%= @p1_name %>, you fired at <%= @p2_name %>'s fleet
   <% if @result == :hit %>
     and hit!
   <% else %>
@@ -25,7 +25,7 @@
 </h1>
 
 <h1>
-  <%= $p2_name %>, it's your go.
+  <%= @p2_name %>, it's your go.
   Click <a href="/game/player_2_turn">here</a> to play your next move.
 </h1>
 
