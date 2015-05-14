@@ -27,24 +27,16 @@ set :views, Proc.new { File.join(root, "..", "views") }
   end
 
   get '/game/player_1_turn' do
-    if !@@game.player_1.all_ships_sunk?
-      @p1_board_own = @@game.own_board_view @@game.player_1
-      @p1_board_opp = @@game.opponent_board_view @@game.player_1
-      erb :player_1_turn
-    else
-      @player_1_win_status = @@game.player_1.winner?
-      @player_2_win_status = @@game.player_2.winner?
-      erb :end_game
-    end
+    @p1_board_own = @@game.own_board_view @@game.player_1
+    @p1_board_opp = @@game.opponent_board_view @@game.player_1
+    erb :player_1_turn
   end
 
-  post '/game/player_1_turn' do
+  post '/game/player_1_result' do
     @coord = params[:coord]
-    @@game.player_2.shoot @coord.to_sym
+    @result =  @@game.player_1.shoot @coord.to_sym
     if !@@game.player_1.all_ships_sunk?
-      @p1_board_own = @@game.own_board_view @@game.player_1
-      @p1_board_opp = @@game.opponent_board_view @@game.player_1
-      erb :player_1_turn
+      erb :player_1_result
     else
       @player_1_win_status = @@game.player_1.winner?
       @player_2_win_status = @@game.player_2.winner?
@@ -52,31 +44,23 @@ set :views, Proc.new { File.join(root, "..", "views") }
     end
   end
 
-  #  post'/game/player_1_result' do
-  #   @coord = params[:coord]
-  #   @result =  @@game.player_2.shoot @coord.to_sym
-  #   erb :player_1_result
-  # end
+  get '/game/player_2_turn' do
+    @p2_board_own = @@game.own_board_view @@game.player_2
+    @p2_board_opp = @@game.opponent_board_view @@game.player_2
+    erb :player_2_turn
+  end
 
-  post '/game/player_2_turn' do
+  post '/game/player_2_result' do
     @coord = params[:coord]
-    @@game.player_1.shoot @coord.to_sym
-    if !@@game.player_2.all_ships_sunk?
-      @p2_board_own = @@game.own_board_view @@game.player_2
-      @p2_board_opp = @@game.opponent_board_view @@game.player_2
-      erb :player_2_turn
+    @result =  @@game.player_2.shoot @coord.to_sym
+      if !@@game.player_2.all_ships_sunk?
+      erb :player_2_result
     else
       @player_1_win_status = @@game.player_1.winner?
       @player_2_win_status = @@game.player_2.winner?
       erb :end_game
     end
   end
-
-  #  post'/game/player_2_result' do
-  #   @coord = params[:coord]
-  #   @result =  @@game.player_1.shoot @coord.to_sym
-  #   erb :player_2_result
-  # end
 
   # start the server if ruby file executed directly
   run! if app_file == $0

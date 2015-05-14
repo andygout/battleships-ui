@@ -7,19 +7,19 @@
       -moz-background-size: cover;
       -o-background-size: cover;
       background-size: cover;
-      font-family: helvetica;
+      font-family: Impact, Charcoal, sans-serif;
       font-size: 30px;
     }
   </style>
 </head>
 
 <h1>
-  <%= $p1_name %>, you fired at <%= $p2_name %>'s fleet and
+  <%= $p1_name %>, you fired at <%= $p2_name %>'s fleet
   <% if @result == :hit %>
-    hit
+    and hit!
   <% else %>
-    missed
-  <% end %>!
+    but missed!
+  <% end %>
 </h1>
 
 <h1>
