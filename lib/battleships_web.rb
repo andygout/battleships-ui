@@ -5,6 +5,7 @@ class BattleshipsWeb < Sinatra::Base
 set :views, Proc.new { File.join(root, "..", "views") }
 
   @@game = Game.new Player, Board
+  enable :sessions
 
   get '/' do
     erb :index
@@ -46,6 +47,12 @@ set :views, Proc.new { File.join(root, "..", "views") }
     end
   end
 
+  post'/game/player_1_result' do
+    @coord = params[:coord]
+    @result =  @@game.player_2.shoot @coord.to_sym
+    erb :player_1_result
+  end
+
   post '/game/player_2_turn' do
     @coord = params[:coord]
     @@game.player_1.shoot @coord.to_sym
@@ -60,6 +67,12 @@ set :views, Proc.new { File.join(root, "..", "views") }
       @player_2_win_status = @@game.player_2.winner?
       erb :end_game
     end
+  end
+
+   post'/game/player_2_result' do
+    @coord = params[:coord]
+    @result =  @@game.player_1.shoot @coord.to_sym
+    erb :player_2_result
   end
 
   # start the server if ruby file executed directly

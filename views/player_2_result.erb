@@ -1,0 +1,30 @@
+<center>
+<head>
+  <style>
+    body {
+      background: url("http://www.pageresource.com/wallpapers/wallpaper/uss-iowa-battle-battleship-fire-gun-guns-navy-design_481542.jpg") no-repeat fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      font-family: helvetica;
+      font-size: 30px;
+    }
+  </style>
+</head>
+
+<h1>
+  <%= $p2_name %>, you fired at <%= $p1_name %>'s fleet and
+  <% if @result == :hit %>
+    hit
+  <% else %>
+    missed
+  <% end %>!
+</h1>
+
+<h1>
+  <%= $p1_name %>, it's your go.
+  Click <a href="/game/player_1_turn">here</a> to play your next move.
+</h1>
+
+</center>

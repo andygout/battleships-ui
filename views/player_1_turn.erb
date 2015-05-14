@@ -8,7 +8,7 @@
       -o-background-size: cover;
       background-size: cover;
       font-family: helvetica;
-      font-size: 200px;
+      font-size: 30px;
     }
   </style>
 </head>
@@ -22,7 +22,7 @@
 <pre><%= @p1_board_opp %></pre>
 
 <div>
-<form action="/game/player_2_turn" method="post">
+<form action="/game/player_1_result" method="post">
 Coordinates to fire on, captain?
 <input type="text" name="coord">
 <input type="submit" value="submit">
