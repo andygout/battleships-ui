@@ -36,7 +36,11 @@ enable :sessions
 
   post '/game/player_1_result' do
     @coord = params[:coord]
-    @result =  @@game.player_1.shoot @coord.to_sym
+    begin
+      @result =  @@game.player_1.shoot @coord.to_sym
+    rescue RuntimeError
+      redirect '/game/player_1_turn'
+    end
     @p1_name = session[:p1_name]
     @p2_name = session[:p2_name]
     if !@@game.player_2.all_ships_sunk?
@@ -57,7 +61,11 @@ enable :sessions
 
   post '/game/player_2_result' do
     @coord = params[:coord]
-    @result =  @@game.player_2.shoot @coord.to_sym
+    begin
+      @result =  @@game.player_2.shoot @coord.to_sym
+    rescue RuntimeError
+      redirect '/game/player_2_turn'
+    end
     @p1_name = session[:p1_name]
     @p2_name = session[:p2_name]
       if !@@game.player_1.all_ships_sunk?
