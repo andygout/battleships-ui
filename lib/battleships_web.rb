@@ -14,11 +14,11 @@ set :views, Proc.new { File.join(root, "..", "views") }
     erb :register_players
   end
 
-  post '/game' do
+  post '/game/commence_battle' do
     $p1_name = params[:p1_name]
     $p2_name = params[:p2_name]
-    if $p1_name.empty? && $p2_name.empty?
-      redirect '/game/new'
+    if $p1_name.empty? || $p2_name.empty?
+      redirect '/game/register_players'
     else
       @@game.player_1.place_ship Ship.destroyer, 'A1', :vertically
       @@game.player_2.place_ship Ship.destroyer, 'J1', :vertically
