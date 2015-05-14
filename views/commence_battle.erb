@@ -13,19 +13,7 @@
   </style>
 </head>
 
-<h1>Your turn to fire, <%= $p1_name %> (player 1)!</h1>
-
-<h2>Your fleet:-</h2>
-<pre><%= @p1_board_own %></pre>
-
-<h2>Your shots against the enemy:-</h2>
-<pre><%= @p1_board_opp %></pre>
-
-<div>
-<form action="/game/player_2_turn" method="post">
-Coordinates to fire on, captain?
-<input type="text" name="coord">
-<input type="submit" value="submit">
-</form>
-</div>
+<body>
+  <a href="/game/player_1_turn">Let battle commence</a>
+</body>
 </center>

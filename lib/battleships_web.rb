@@ -5,10 +5,9 @@ class BattleshipsWeb < Sinatra::Base
 set :views, Proc.new { File.join(root, "..", "views") }
 
   @@game = Game.new Player, Board
-  enable :sessions
 
   get '/' do
-    erb :index
+    erb :start_page
   end
 
   get '/game/register_players' do
@@ -23,11 +22,19 @@ set :views, Proc.new { File.join(root, "..", "views") }
     else
       @@game.player_1.place_ship Ship.destroyer, 'A1', :vertically
       @@game.player_2.place_ship Ship.destroyer, 'J1', :vertically
+      erb :commence_battle
+    end
+  end
+
+  get '/game/player_1_turn' do
+    if !@@game.player_1.all_ships_sunk?
       @p1_board_own = @@game.own_board_view @@game.player_1
       @p1_board_opp = @@game.opponent_board_view @@game.player_1
-      @p2_board_own = @@game.own_board_view @@game.player_2
-      @p2_board_opp = @@game.opponent_board_view @@game.player_2
       erb :player_1_turn
+    else
+      @player_1_win_status = @@game.player_1.winner?
+      @player_2_win_status = @@game.player_2.winner?
+      erb :end_game
     end
   end
 
@@ -37,8 +44,6 @@ set :views, Proc.new { File.join(root, "..", "views") }
     if !@@game.player_1.all_ships_sunk?
       @p1_board_own = @@game.own_board_view @@game.player_1
       @p1_board_opp = @@game.opponent_board_view @@game.player_1
-      @p2_board_own = @@game.own_board_view @@game.player_2
-      @p2_board_opp = @@game.opponent_board_view @@game.player_2
       erb :player_1_turn
     else
       @player_1_win_status = @@game.player_1.winner?
@@ -47,18 +52,16 @@ set :views, Proc.new { File.join(root, "..", "views") }
     end
   end
 
-  post'/game/player_1_result' do
-    @coord = params[:coord]
-    @result =  @@game.player_2.shoot @coord.to_sym
-    erb :player_1_result
-  end
+  #  post'/game/player_1_result' do
+  #   @coord = params[:coord]
+  #   @result =  @@game.player_2.shoot @coord.to_sym
+  #   erb :player_1_result
+  # end
 
   post '/game/player_2_turn' do
     @coord = params[:coord]
     @@game.player_1.shoot @coord.to_sym
     if !@@game.player_2.all_ships_sunk?
-      @p1_board_own = @@game.own_board_view @@game.player_1
-      @p1_board_opp = @@game.opponent_board_view @@game.player_1
       @p2_board_own = @@game.own_board_view @@game.player_2
       @p2_board_opp = @@game.opponent_board_view @@game.player_2
       erb :player_2_turn
@@ -69,11 +72,11 @@ set :views, Proc.new { File.join(root, "..", "views") }
     end
   end
 
-   post'/game/player_2_result' do
-    @coord = params[:coord]
-    @result =  @@game.player_1.shoot @coord.to_sym
-    erb :player_2_result
-  end
+  #  post'/game/player_2_result' do
+  #   @coord = params[:coord]
+  #   @result =  @@game.player_1.shoot @coord.to_sym
+  #   erb :player_2_result
+  # end
 
   # start the server if ruby file executed directly
   run! if app_file == $0
