@@ -9,16 +9,28 @@
       background-size: cover;
       font-family: Impact, Charcoal, sans-serif;
       font-size: 30px;
+      color: white;
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     }
   </style>
 </head>
 
-<h1>Game has been won!!!!!!</h1>
+<h1>Game Over!</h1>
 
-<h2>Player 1 win status:-</h2>
-<h2><%= @player_1_win_status %></h2>
+<h2><%= $p1_name %> (Player 1):-
+  <% if @player_1_win_status == true %>
+    WINNER
+  <% else %>
+    LOSER
+  <% end %>
+<h2>
 
-<h2>Player 2 win status:-</h2>
-<h2><%= @player_2_win_status %></h2>
+<h2><%= $p2_name %> (Player 2):-
+  <% if @player_2_win_status == true %>
+    WINNER
+  <% else %>
+    LOSER
+  <% end %>
+<h2>
 
 </center>

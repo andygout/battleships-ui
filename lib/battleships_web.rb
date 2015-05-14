@@ -35,7 +35,7 @@ set :views, Proc.new { File.join(root, "..", "views") }
   post '/game/player_1_result' do
     @coord = params[:coord]
     @result =  @@game.player_1.shoot @coord.to_sym
-    if !@@game.player_1.all_ships_sunk?
+    if !@@game.player_2.all_ships_sunk?
       erb :player_1_result
     else
       @player_1_win_status = @@game.player_1.winner?
@@ -53,7 +53,7 @@ set :views, Proc.new { File.join(root, "..", "views") }
   post '/game/player_2_result' do
     @coord = params[:coord]
     @result =  @@game.player_2.shoot @coord.to_sym
-      if !@@game.player_2.all_ships_sunk?
+      if !@@game.player_1.all_ships_sunk?
       erb :player_2_result
     else
       @player_1_win_status = @@game.player_1.winner?
