@@ -3,6 +3,7 @@ require 'battleships'
 
 class BattleshipsWeb < Sinatra::Base
 set :views, Proc.new { File.join(root, "..", "views") }
+set :public_folder, 'public'
 enable :sessions
 
   @@game = Game.new Player, Board
@@ -40,7 +41,7 @@ enable :sessions
   post '/game/player_1_result' do
     @coord = params[:coord]
     begin
-      @result =  @@game.player_1.shoot @coord.to_sym
+      @result = @@game.player_1.shoot @coord.to_sym
     rescue RuntimeError
       session[:p1_coord_error] = "YOU HAVE ALREADY FIRED AT THESE COORDINATES: #{@coord}"
       redirect '/game/player_1_turn'
@@ -68,7 +69,7 @@ enable :sessions
   post '/game/player_2_result' do
     @coord = params[:coord]
     begin
-      @result =  @@game.player_2.shoot @coord.to_sym
+      @result = @@game.player_2.shoot @coord.to_sym
     rescue RuntimeError
       session[:p2_coord_error] = "YOU HAVE ALREADY FIRED AT THESE COORDINATES: #{@coord}"
       redirect '/game/player_2_turn'
