@@ -12,10 +12,13 @@
       color: white;
       text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     }
+    .error {color: #FF3232;}
   </style>
 </head>
 
 <h1>Your turn to fire, <%= @p1_name %> (player 1)!</h1>
+
+<div class="error"><%= @p1_coord_error %></div>
 
 <h2>Your fleet:-</h2>
 <pre><%= @p1_board_own %></pre>
