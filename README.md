@@ -244,7 +244,7 @@ Next steps:
 - Allow for a one-player game (vs. computer) and a two player game to be played on separate browsers
 - Placing ships on the board, inc. error handling for illegal positions (off the board/overlapping with other ships)) / placing the selection of five ships (choosing which ship to place with selection decreasing after each ship is positioned)
 - Notification of when individual ships have been sunk, i.e. *You sunk my battleship!*
-- Further testing
+- Further testing...
 
 
 Links:
